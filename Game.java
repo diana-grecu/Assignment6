@@ -156,45 +156,46 @@ public class Game {
 
 
 	public boolean isCorrectAnswer() {
-		if (inPenaltyBox[currentPlayerIndex]) {
-			if (isGettingOutOfPenaltyBox) {
-				if (isCorrectAnswer()) {
+			if (inPenaltyBox[currentPlayerIndex]) {
+				if (isGettingOutOfPenaltyBox) {
 					System.out.println("Answer was correct!!!!");
 					purses[currentPlayerIndex]++;
 					System.out.println(playersNames.get(currentPlayerIndex)
 							+ " now has "
 							+ purses[currentPlayerIndex]
 							+ " Gold Coins.");
+
+					boolean winner = didPlayerWin();
+					currentPlayerIndex++;
+					if (currentPlayerIndex == playersNames.size())
+						currentPlayerIndex = 0;
+
+					return winner;
 				} else {
-					System.out.println("Answer was incorrect!");
-					inPenaltyBox[currentPlayerIndex] = true;
+					currentPlayerIndex++;
+					if (currentPlayerIndex == playersNames.size())
+						currentPlayerIndex = 0;
+					return true;
 				}
 
-				boolean winner = didPlayerWin();
-				updateCurrentPlayerIndex();
-				return winner;
 			} else {
-				updateCurrentPlayerIndex();
-				return false;
-			}
-		} else {
-			if (isCorrectAnswer()) {
-				System.out.println("Answer was correct!!!!");
+
+				System.out.println("Answer was corrent!!!!");
 				purses[currentPlayerIndex]++;
 				System.out.println(playersNames.get(currentPlayerIndex)
 						+ " now has "
 						+ purses[currentPlayerIndex]
 						+ " Gold Coins.");
-			} else {
-				System.out.println("Answer was incorrect!");
-				inPenaltyBox[currentPlayerIndex] = true;
-			}
 
-			boolean winner = didPlayerWin();
-			updateCurrentPlayerIndex();
-			return winner;
+				boolean winner = didPlayerWin();
+				currentPlayerIndex++;
+				if (currentPlayerIndex == playersNames.size())
+					currentPlayerIndex = 0;
+
+				return winner;
+			}
 		}
-	}
+
 
 	private void updateCurrentPlayerIndex() {
 		currentPlayerIndex++;
